@@ -259,7 +259,7 @@ LCN_SendCommand($DisplayId, "GT", "DT" . $DisplayZeile . "5" . (substr($nowPlayi
       IPS_SetName($eid, "E_rel_true");
 //      IPS_SetEventTrigger($eid, 1, $Ziel_id);        //Bei Änderung von Variable 
       IPS_SetEventTrigger($eid, 4, $Ziel_id);        //Bei bestimmten Wert
-      IPS_SetEventTriggerValue($eid, true);       
+      @IPS_SetEventTriggerValue($eid, true);       
       IPS_SetParent($eid, $TargetID);         //Ereignis zuordnen
       IPS_SetEventActive($eid, true);             //Ereignis aktivieren
 
@@ -274,7 +274,7 @@ LCN_SendCommand($DisplayId, "GT", "DT" . $DisplayZeile . "5" . (substr($nowPlayi
       IPS_SetName($eid, "E_rel_false");
 //      IPS_SetEventTrigger($eid, 1, $Ziel_id);        //Bei Änderung von Variable 
       IPS_SetEventTrigger($eid, 4, $Ziel_id);        //Bei bestimmten Wert
-      IPS_SetEventTriggerValue($eid, false);       
+      @IPS_SetEventTriggerValue($eid, false);       
       IPS_SetParent($eid, $TargetID);         //Ereignis zuordnen
       IPS_SetEventActive($eid, true);             //Ereignis aktivieren
     }
