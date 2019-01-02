@@ -1,0 +1,16 @@
+{
+	"elements":
+	[
+    { "type": "Label", "label": "Angepasst an das Sonos Modul von Kugelberg : https://www.symcon.de/forum/threads/27500-Sonos-Modul"}, 
+    { "type": "Label", "label": "https://github.com/tkugelberg/SymconSonos"},  
+    { "name": "Sonos_ID",        "type": "SelectInstance",    "caption": "Sonos ID" },
+		{ "name": "LCNDisplayId",   "type": "SelectInstance",    "caption": "LCNDisplayId"},
+    { "name": "Trigger",        "type": "SelectVariable",    "caption": "Trigger nowPlaying" },
+    { "name": "Trigger_BMI",    "type": "SelectVariable",    "caption": "Trigger BMI" },
+    { "name": "Rel_id",    "type": "SelectVariable",    "caption": "AutostartID - Rel" },
+    { "name": "LCNDisplayLine1","type": "NumberSpinner",     "caption": "ZeilenNr1" }
+	],
+	"actions":
+	[
+	]	
+}

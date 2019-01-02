@@ -1,0 +1,14 @@
+{
+	"id": "{a0189cec-47d5-11e5-a151-feff819cdc9f}",
+	"name": "TS_LCN2Sonos",
+	"type": 3,
+	"vendor": "",
+	"aliases": 
+	[
+		"TS_LCN2Sonos"
+	],
+	"parentRequirements": [],
+	"childRequirements": [],
+	"implemented": [],
+	"prefix": ""
+}
