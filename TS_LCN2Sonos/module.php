@@ -1,4 +1,4 @@
-<?
+<?php
 class TS_LCN2Sonos extends IPSModule
 {
     
@@ -32,7 +32,7 @@ class TS_LCN2Sonos extends IPSModule
          $trigger_id = $this->ReadPropertyInteger("Trigger_BMI");
          
         // Start add scripts 
-        $timerScript='<?
+        $timerScript='<?php
 $SonosId = IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "Sonos_ID");
 
 if (@IPS_GetObjectIDByName("Sleeptimer", $SonosId)){
@@ -50,7 +50,7 @@ if (@IPS_GetObjectIDByName("Sleeptimer", $SonosId)){
       	}
     }
 }
-?>';
+';
   $timerScriptID = $this->RegisterScript("_timer", "_timer", $timerScript);
   IPS_SetHidden($timerScriptID,true);
 
@@ -60,7 +60,7 @@ if (@IPS_GetObjectIDByName("Sleeptimer", $SonosId)){
   }
 
 
-        $timerScriptaktion = '<?
+        $timerScriptaktion = '<?php
 $SonosId = IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "Sonos_ID");
 if (@IPS_GetObjectIDByName("Sleeptimer", $SonosId)){
 //Script zum WERTEZUWEISEN aus dem Webfrontend
@@ -81,7 +81,7 @@ if (@IPS_GetObjectIDByName("Sleeptimer", $SonosId)){
     $s_steuer = GetValue(IPS_GetObjectIDByName("Timer", IPS_GetParent($_IPS["SELF"]))   );
   }
 }
-?>';
+';
   $timerScriptaktionID = $this->RegisterScript("_timer_aktion", "_timer_aktion", $timerScriptaktion);
 
               IPS_SetHidden($timerScriptaktionID,true);
@@ -97,7 +97,7 @@ if (@IPS_GetObjectIDByName("Sleeptimer", $SonosId)){
 // sleeptimer ende
 
 //update_status
-        $_update_status = '<?
+        $_update_status = '<?php
 $SonosId = IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "Sonos_ID");
 $timer1ID= IPS_GetObjectIDByName("_updateStatus", $SonosId);
 $timer2ID= IPS_GetObjectIDByName("_updateGrouping", $SonosId);
@@ -123,7 +123,7 @@ $triggerID = IPS_GetObjectIDByName("E_Trigger",(IPS_GetObjectIDByName("_timer",I
      IPS_SetScriptTimer($timer2ID, 300);                  // ScriptTimer einschalten (auf 300 Sekunde setzen)
      IPS_SetEventActive($triggerID, true);  // deAktivert Ereignis
     }
-?>';
+';
   $_update_status_ID = $this->RegisterScript("_update_status", "_update_status", $_update_status);
 
              IPS_SetHidden($_update_status_ID,true);
@@ -136,7 +136,7 @@ $triggerID = IPS_GetObjectIDByName("E_Trigger",(IPS_GetObjectIDByName("_timer",I
 
 //update_status
 //Autostart
-        $auto = '<?
+        $auto = '<?php
 $steuer_id = IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "Rel_id");
 $SonosId = IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "Sonos_ID");
 $radio=IPS_GetProperty($SonosId, "FavoriteStation");
@@ -161,7 +161,7 @@ switch ($_IPS["SENDER"])                                     // Ursache (Absende
 }
 //		TSSNS_SetRadio($SonosId ,$radio);
 //		TSSNS_Play($SonosId);
-?>';
+';
     $autoID = $this->RegisterScript("_autostart", "_autostart", $auto);
 
              IPS_SetHidden($autoID,true);
@@ -175,7 +175,7 @@ switch ($_IPS["SENDER"])                                     // Ursache (Absende
 //Autostart
 
 
-        $_lcn_sonos = '<?
+        $_lcn_sonos = '<?php
 // Display ----------------------------------------------------------------------------------------
 $DisplayId = IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "LCNDisplayId");
 $SonosId = IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "Sonos_ID");
@@ -193,7 +193,7 @@ LCN_SendCommand($DisplayId, "GT", "DT" . $DisplayZeile . "4" . (substr($nowPlayi
 LCN_SendCommand($DisplayId, "GT", "DT" . $DisplayZeile . "5" . (substr($nowPlaying, 48, 12)));
 // Display ----------------------------------------------------------------------------------------
 
-?>';
+';
     $_lcn_sonosID  = $this->RegisterScript("_lcn_sonos", "_lcn_sonos", $_lcn_sonos);
 
         IPS_SetHidden($_lcn_sonosID,true);
@@ -298,4 +298,4 @@ LCN_SendCommand($DisplayId, "GT", "DT" . $DisplayZeile . "5" . (substr($nowPlayi
     }	
 
 }
-?>
+
