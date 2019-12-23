@@ -40,13 +40,15 @@ if (@IPS_GetObjectIDByName("Sleeptimer", $SonosId)){
     if (Sys_Ping($ip, 1000) == true) {
         $s_steuer = GetValue(IPS_GetObjectIDByName("Timer", IPS_GetParent($_IPS["SELF"])));
         $s_bmi_aktiv = GetValue(IPS_GetObjectIDByName("Timer", IPS_GetParent($_IPS["SELF"])));
-        include_once("../modules/SymconSonos/Sonos/sonosAccess.php");
+        //include_once("../modules/SymconSonos/Sonos/sonosAccess.php");
 
       	if ($s_bmi_aktiv  == 1){
-      		$sonos = new SonosAccess($ip); //Sonos ZP IPAdresse
-      		$sonos->Play();
-      		$sonos = new SonosAccess($ip); //Sonos ZP IPAdresse
-      		$sonos->SetSleeptimer(0,6,0);
+      		//$sonos = new SonosAccess($ip); //Sonos ZP IPAdresse
+      		//$sonos->Play();
+      		//$sonos = new SonosAccess($ip); //Sonos ZP IPAdresse
+      		//$sonos->SetSleeptimer(0,6,0);
+			SNS_Play($SonosId);
+			SNS_SetSleepTimer($SonosId, 6);
       	}
     }
 }
@@ -70,13 +72,15 @@ if (@IPS_GetObjectIDByName("Sleeptimer", $SonosId)){
   $s_steuer = ($_IPS["VALUE"]);
   $ip = IPS_GetProperty($SonosId, "IPAddress");
   if (Sys_Ping($ip, 1000) == true) {
-    include_once("../modules/SymconSonos/Sonos/sonosAccess.php");
-    $sonos = new SonosAccess($ip); //Sonos ZP IPAdresse
+    //include_once("../modules/SymconSonos/Sonos/sonosAccess.php");
+    //$sonos = new SonosAccess($ip); //Sonos ZP IPAdresse
     if ($s_steuer == 0) {
-      $sonos->SetSleeptimer(0,0,0);
+      //$sonos->SetSleeptimer(0,0,0);
+	  SNS_SetSleepTimer($SonosId, 0);
     }
     if ($s_steuer == 1){
-    $sonos->SetSleeptimer(0,6,0);
+    //$sonos->SetSleeptimer(0,6,0);
+	SNS_SetSleepTimer($SonosId, 6);
     }
     $s_steuer = GetValue(IPS_GetObjectIDByName("Timer", IPS_GetParent($_IPS["SELF"]))   );
   }
@@ -97,7 +101,9 @@ if (@IPS_GetObjectIDByName("Sleeptimer", $SonosId)){
 // sleeptimer ende
 
 //update_status
+/*
         $_update_status = '<?php
+
 $SonosId = IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "Sonos_ID");
 $timer1ID= IPS_GetObjectIDByName("_updateStatus", $SonosId);
 $timer2ID= IPS_GetObjectIDByName("_updateGrouping", $SonosId);
@@ -133,14 +139,15 @@ $triggerID = IPS_GetObjectIDByName("E_Trigger",(IPS_GetObjectIDByName("_timer",I
   if ( IPS_ScriptExists($sk_id)){
       IPS_SetScriptContent ( $sk_id, $_update_status);
   }
-
+*/
 //update_status
+
 //Autostart
         $auto = '<?php
 $steuer_id = IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "Rel_id");
 $SonosId = IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "Sonos_ID");
-$radio=IPS_GetProperty($SonosId, "FavoriteStation");
-
+//$radio=IPS_GetProperty($SonosId, "FavoriteStation");
+$radio="Radio Lippe";
 switch ($_IPS["SENDER"])                                     // Ursache (Absender) des Triggers ermittlen
 {
   case "Variable":                                       // status hat sich geÃ¤ndert
@@ -182,7 +189,7 @@ $SonosId = IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "Sonos_ID");
 $LCNDisplayLine1 = IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "LCNDisplayLine1");
 
 $DisplayZeile   = $LCNDisplayLine1;
-$sourceID= IPS_GetObjectIDByName("nowPlaying", $SonosId);
+$sourceID= IPS_GetObjectIDByIdent("nowPlaying", $SonosId);
 //print_r($sourceID);
 $nowPlaying     = GetValueString($sourceID);
 //print_r($nowPlaying);
