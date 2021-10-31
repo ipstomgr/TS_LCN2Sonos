@@ -231,7 +231,7 @@ LCN_SendCommand($DisplayId, "GT", "DT" . $DisplayZeile . "5" . (substr($nowPlayi
       IPS_SetName($eid, "E_trigger");
       IPS_SetEventTrigger($eid, 1, $sid_berechnung);        //Bei Änderung von Variable mit ID 15754
       IPS_SetParent($eid, $TargetID);         //Ereignis zuordnen
-      IPS_SetEventActive($eid, false);             //Ereignis aktivieren
+      //IPS_SetEventActive($eid, false);             //Ereignis aktivieren
     }	
 
 		private function Registerevent1($trigger_id,$TargetID, $aktiv)  //$trigger_id,$timerScriptID
@@ -249,7 +249,7 @@ LCN_SendCommand($DisplayId, "GT", "DT" . $DisplayZeile . "5" . (substr($nowPlayi
       IPS_SetName($eid, "E_Trigger");
       IPS_SetEventTrigger($eid, 1, $trigger_id);        //Bei Änderung von Variable 
       IPS_SetParent($eid, $TargetID);         //Ereignis zuordnen
-      IPS_SetEventActive($eid, false);             //Ereignis aktivieren
+      //IPS_SetEventActive($eid, false);             //Ereignis aktivieren
     }	
 		private function Registerevent2($TargetID,$Ziel_id)
 		{ 
@@ -300,7 +300,7 @@ LCN_SendCommand($DisplayId, "GT", "DT" . $DisplayZeile . "5" . (substr($nowPlayi
       IPS_SetName($eid, "E_rel");
       IPS_SetEventTrigger($eid, 1, $Ziel_id);        //Bei Änderung von Variable 
       IPS_SetParent($eid, $TargetID);         //Ereignis zuordnen
-      IPS_SetEventActive($eid, false);             //Ereignis aktivieren
+      //IPS_SetEventActive($eid, false);             //Ereignis aktivieren
 
     }	
 
