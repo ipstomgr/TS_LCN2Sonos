@@ -40,13 +40,8 @@ if (@IPS_GetObjectIDByName("Sleeptimer", $SonosId)){
     if (Sys_Ping($ip, 1000) == true) {
         $s_steuer = GetValue(IPS_GetObjectIDByName("Timer", IPS_GetParent($_IPS["SELF"])));
         $s_bmi_aktiv = GetValue(IPS_GetObjectIDByName("Timer", IPS_GetParent($_IPS["SELF"])));
-        //include_once("../modules/SymconSonos/Sonos/sonosAccess.php");
 
       	if ($s_bmi_aktiv  == 1){
-      		//$sonos = new SonosAccess($ip); //Sonos ZP IPAdresse
-      		//$sonos->Play();
-      		//$sonos = new SonosAccess($ip); //Sonos ZP IPAdresse
-      		//$sonos->SetSleeptimer(0,6,0);
 			SNS_Play($SonosId);
 			SNS_SetSleepTimer($SonosId, 6);
       	}
@@ -72,15 +67,11 @@ if (@IPS_GetObjectIDByName("Sleeptimer", $SonosId)){
   $s_steuer = ($_IPS["VALUE"]);
   $ip = IPS_GetProperty($SonosId, "IPAddress");
   if (Sys_Ping($ip, 1000) == true) {
-    //include_once("../modules/SymconSonos/Sonos/sonosAccess.php");
-    //$sonos = new SonosAccess($ip); //Sonos ZP IPAdresse
     if ($s_steuer == 0) {
-      //$sonos->SetSleeptimer(0,0,0);
 	  SNS_SetSleepTimer($SonosId, 0);
     }
     if ($s_steuer == 1){
-    //$sonos->SetSleeptimer(0,6,0);
-	SNS_SetSleepTimer($SonosId, 6);
+    	SNS_SetSleepTimer($SonosId, 6);
     }
     $s_steuer = GetValue(IPS_GetObjectIDByName("Timer", IPS_GetParent($_IPS["SELF"]))   );
   }
@@ -92,55 +83,19 @@ if (@IPS_GetObjectIDByName("Sleeptimer", $SonosId)){
               IPS_SetVariableCustomAction($timer_id,$timerScriptaktionID);
               
               $aktiv = true;
+ //BMI              
+// var_dump($trigger_id)  ;
+if ($trigger_id <> 0) {
+
               $this->Registerevent1($trigger_id,$timerScriptID,$aktiv);
+}              
   $sk_id=IPS_GetObjectIDByIdent('_timer_aktion', $this->InstanceID);
   if ( IPS_ScriptExists($sk_id)){
       IPS_SetScriptContent ( $sk_id, $timerScriptaktion);
   }
-              
+            
 // sleeptimer ende
 
-//update_status
-/*
-        $_update_status = '<?php
-
-$SonosId = IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "Sonos_ID");
-$timer1ID= IPS_GetObjectIDByName("_updateStatus", $SonosId);
-$timer2ID= IPS_GetObjectIDByName("_updateGrouping", $SonosId);
-$StatusID= IPS_GetObjectIDByName("Status", $SonosId);
-$nowPlayingID= IPS_GetObjectIDByName("nowPlaying", $SonosId);
-$VolumeID= IPS_GetObjectIDByName("Volume", $SonosId);
-$RadioID= IPS_GetObjectIDByName("Radio", $SonosId);
-$triggerID = IPS_GetObjectIDByName("E_Trigger",(IPS_GetObjectIDByName("_timer",IPS_GetParent($_IPS["SELF"]))));
-
-    $RelId = IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "Rel_id");
-    $Rel= GetValueBoolean($RelId);
-    if ($Rel == 0) {
-     IPS_SetScriptTimer($timer1ID , 0);                  // ScriptTimer einschalten (auf 0 setzen)
-     IPS_SetScriptTimer($timer2ID , 0);
-     SetValueInteger($StatusID, 3);
-     SetValueString($nowPlayingID, "");
-     SetValueInteger($VolumeID, 0);
-     SetValueInteger($RadioID, 0);
-     IPS_SetEventActive($triggerID, false);  // deAktivert Ereignis
-    }
-    if ($Rel == 1){
-     IPS_SetScriptTimer($timer1ID  , 5);                  // ScriptTimer einschalten (auf 5 Sekunde setzen)
-     IPS_SetScriptTimer($timer2ID, 300);                  // ScriptTimer einschalten (auf 300 Sekunde setzen)
-     IPS_SetEventActive($triggerID, true);  // deAktivert Ereignis
-    }
-';
-  $_update_status_ID = $this->RegisterScript("_update_status", "_update_status", $_update_status);
-
-             IPS_SetHidden($_update_status_ID,true);
-             $this->Registerevent2($_update_status_ID,$steuer_id); 
-
-  $sk_id=IPS_GetObjectIDByIdent('_update_status', $this->InstanceID);
-  if ( IPS_ScriptExists($sk_id)){
-      IPS_SetScriptContent ( $sk_id, $_update_status);
-  }
-*/
-//update_status
 
 //Autostart
         $auto = '<?php
@@ -166,14 +121,15 @@ switch ($_IPS["SENDER"])                                     // Ursache (Absende
   break;
 
 }
-//		TSSNS_SetRadio($SonosId ,$radio);
-//		TSSNS_Play($SonosId);
 ';
     $autoID = $this->RegisterScript("_autostart", "_autostart", $auto);
 
              IPS_SetHidden($autoID,true);
+//var_dump( $steuer_id)  ;
+if ( $steuer_id <> 0) {
              IPS_SetScriptTimer($autoID, 0); 
-             $this->Registerevent3($autoID,$steuer_id); 
+             $this->Registerevent3($autoID,$steuer_id);
+}              
   $sk_id=IPS_GetObjectIDByIdent('_autostart', $this->InstanceID);
   if ( IPS_ScriptExists($sk_id)){
       IPS_SetScriptContent ( $sk_id, $auto);
@@ -190,7 +146,6 @@ $LCNDisplayLine1 = IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "LCNDisplayLine
 
 $DisplayZeile   = $LCNDisplayLine1;
 $sourceID= IPS_GetObjectIDByIdent("nowPlaying", $SonosId);
-//print_r($sourceID);
 $nowPlaying     = GetValueString($sourceID);
 //print_r($nowPlaying);
 LCN_SendCommand($DisplayId, "GT", "DT" . $DisplayZeile . "1" . (substr($nowPlaying,  0, 12)));
@@ -205,7 +160,9 @@ LCN_SendCommand($DisplayId, "GT", "DT" . $DisplayZeile . "5" . (substr($nowPlayi
 
         IPS_SetHidden($_lcn_sonosID,true);
         $Trigger_id =$this->ReadPropertyInteger("Trigger");
+if ($Trigger_id <> 0) {
         $this->Registerevent_trigger($_lcn_sonosID,$Trigger_id); 
+}
   $sk_id=IPS_GetObjectIDByIdent('_lcn_sonos', $this->InstanceID);
   if ( IPS_ScriptExists($sk_id)){
       IPS_SetScriptContent ( $sk_id, $_lcn_sonos);
@@ -231,7 +188,7 @@ LCN_SendCommand($DisplayId, "GT", "DT" . $DisplayZeile . "5" . (substr($nowPlayi
       IPS_SetName($eid, "E_trigger");
       IPS_SetEventTrigger($eid, 1, $sid_berechnung);        //Bei Änderung von Variable mit ID 15754
       IPS_SetParent($eid, $TargetID);         //Ereignis zuordnen
-      //IPS_SetEventActive($eid, false);             //Ereignis aktivieren
+      IPS_SetEventActive($eid, true);             //Ereignis aktivieren
     }	
 
 		private function Registerevent1($trigger_id,$TargetID, $aktiv)  //$trigger_id,$timerScriptID
@@ -249,7 +206,7 @@ LCN_SendCommand($DisplayId, "GT", "DT" . $DisplayZeile . "5" . (substr($nowPlayi
       IPS_SetName($eid, "E_Trigger");
       IPS_SetEventTrigger($eid, 1, $trigger_id);        //Bei Änderung von Variable 
       IPS_SetParent($eid, $TargetID);         //Ereignis zuordnen
-      //IPS_SetEventActive($eid, false);             //Ereignis aktivieren
+      IPS_SetEventActive($eid, true);             //Ereignis aktivieren
     }	
 		private function Registerevent2($TargetID,$Ziel_id)
 		{ 
@@ -300,7 +257,7 @@ LCN_SendCommand($DisplayId, "GT", "DT" . $DisplayZeile . "5" . (substr($nowPlayi
       IPS_SetName($eid, "E_rel");
       IPS_SetEventTrigger($eid, 1, $Ziel_id);        //Bei Änderung von Variable 
       IPS_SetParent($eid, $TargetID);         //Ereignis zuordnen
-      //IPS_SetEventActive($eid, false);             //Ereignis aktivieren
+      IPS_SetEventActive($eid, true);             //Ereignis aktivieren
 
     }	
 
