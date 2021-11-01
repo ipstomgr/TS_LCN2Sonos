@@ -188,6 +188,7 @@ if ($Trigger_id <> 0) {
       IPS_SetName($eid, "E_trigger");
       IPS_SetEventTrigger($eid, 1, $sid_berechnung);        //Bei Änderung von Variable mit ID 15754
       IPS_SetParent($eid, $TargetID);         //Ereignis zuordnen
+      IPS_SetEventAction($eid, '{7938A5A2-0981-5FE0-BE6C-8AA610D654EB}', []);
       IPS_SetEventActive($eid, true);             //Ereignis aktivieren
     }	
 
@@ -206,6 +207,7 @@ if ($Trigger_id <> 0) {
       IPS_SetName($eid, "E_Trigger");
       IPS_SetEventTrigger($eid, 1, $trigger_id);        //Bei Änderung von Variable 
       IPS_SetParent($eid, $TargetID);         //Ereignis zuordnen
+      IPS_SetEventAction($eid, '{7938A5A2-0981-5FE0-BE6C-8AA610D654EB}', []);
       IPS_SetEventActive($eid, true);             //Ereignis aktivieren
     }	
 		private function Registerevent2($TargetID,$Ziel_id)
@@ -225,6 +227,7 @@ if ($Trigger_id <> 0) {
       IPS_SetEventTrigger($eid, 4, $Ziel_id);        //Bei bestimmten Wert
       @IPS_SetEventTriggerValue($eid, true);       
       IPS_SetParent($eid, $TargetID);         //Ereignis zuordnen
+      IPS_SetEventAction($eid, '{7938A5A2-0981-5FE0-BE6C-8AA610D654EB}', []);
       IPS_SetEventActive($eid, true);             //Ereignis aktivieren
 
       $EreignisID = @IPS_GetEventIDByName("E_rel_false",  $TargetID);
@@ -240,6 +243,7 @@ if ($Trigger_id <> 0) {
       IPS_SetEventTrigger($eid, 4, $Ziel_id);        //Bei bestimmten Wert
       @IPS_SetEventTriggerValue($eid, false);       
       IPS_SetParent($eid, $TargetID);         //Ereignis zuordnen
+      IPS_SetEventAction($eid, '{7938A5A2-0981-5FE0-BE6C-8AA610D654EB}', []);
       IPS_SetEventActive($eid, true);             //Ereignis aktivieren
     }
 		private function Registerevent3($TargetID,$Ziel_id)
@@ -257,6 +261,7 @@ if ($Trigger_id <> 0) {
       IPS_SetName($eid, "E_rel");
       IPS_SetEventTrigger($eid, 1, $Ziel_id);        //Bei Änderung von Variable 
       IPS_SetParent($eid, $TargetID);         //Ereignis zuordnen
+      IPS_SetEventAction($eid, '{7938A5A2-0981-5FE0-BE6C-8AA610D654EB}', []);
       IPS_SetEventActive($eid, true);             //Ereignis aktivieren
 
     }	
