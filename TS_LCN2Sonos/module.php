@@ -102,7 +102,9 @@ if ($trigger_id <> 0) {
 $steuer_id = IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "Rel_id");
 $SonosId = IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "Sonos_ID");
 //$radio=IPS_GetProperty($SonosId, "FavoriteStation");
-$radio="Radio Lippe";
+$sender = IPS_GetVariableProfile ("SONOS.Radio")["Associations"][4]["Name"];
+//$radio="Radio Lippe";
+$radio=$sender;
 switch ($_IPS["SENDER"])                                     // Ursache (Absender) des Triggers ermittlen
 {
   case "Variable":                                       // status hat sich geÃ¤ndert
